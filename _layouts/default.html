@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{{ page.title }}</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ site.url }}/css/syntax.css">
+
+        <!-- FontAwesome -->
+        <link rel="stylesheet" type="text/css" href="{{ site.url }}/css/font-awesome.min.css">
+
+        <!-- Other fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono|Oxygen:300' rel='stylesheet' type='text/css'>
+
+        <!-- blog style and layout -->
+        <link rel="stylesheet" type="text/css" href="{{ site.url }}/css/layout.css">
+        <link rel="stylesheet" type="text/css" href="{{ site.url }}/css/style.css">
+
+        <!-- MathJax -->
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+
+        <script type="text/javascript">
+
+          MathJax.Hub.Config({
+            tex2jax: {
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+          });
+
+          MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+              all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+          });
+
+        </script>
+
+        <script src="{{ site.url }}/js/headroom.min.js"></script>
+
+	</head>
+
+	<body>
+
+	<header>
+		<div class="header-container">
+			<div class="header-avatar">
+				<a href="{{ site.url }}/index.html">
+					<div class="header-avatar-picture"></div>
+				</a>
+			</div>
+
+			<div class="header-text">
+				<div class="name">Adam Dej</div>
+				<div class="links">
+					<a href="{{ site.url }}/man.html"> man </a>
+					/
+					<a href="{{ site.url }}/all_posts.html"> posts </a>
+				</div>
+			</div>
+
+			<div class="header-icons">
+				<div class="icons-container">
+					<div class="icon"> <a href="http://hackaday.io/hacker/2448-adam"> <i class="fa fa-hackaday-square"></i> </a> </div>
+					<div class="icon"> <a href="https://github.com/deykoweec"> <i class="fa fa-github-square"></i> </a> </div>
+					<div class="icon"> <a href="https://plus.google.com/+AdamDej"> <i class="fa fa-google-plus-square"></i> </a></div>
+				</div>
+			</div>
+
+		</div>
+	</header>
+
+	<div class="content">
+	   {{ content }}
+	</div>
+
+    <footer>
+
+        <div class="footer-content">
+
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+
+        <div class="links text">
+            <a href="http://hackaday.io/hacker/2448-adam">hackaday.io</a>
+            <a href="https://github.com/deykoweec">github</a>
+            <a href="https://plus.google.com/+AdamDej">google+</a>
+        </div>
+
+        <div class="links icons">
+            <div class="icon"> <a href="http://hackaday.io/hacker/2448-adam"> <i class="fa fa-hackaday-square"></i> </a> </div>
+            <div class="icon"> <a href="https://github.com/deykoweec"> <i class="fa fa-github-square"></i> </a> </div>
+            <div class="icon"> <a href="https://plus.google.com/+AdamDej"> <i class="fa fa-google-plus-square"></i> </a> </div>
+        </div>
+
+        </div>
+
+    </footer>
+
+
+    <script type="text/javascript">
+        var headroom = new Headroom(document.querySelector("header"));
+        headroom.offset = 170;
+        headroom.nextOffset = 250;
+        headroom.notTop = function() {
+            return;
+        }
+        headroom.pin = function() {
+            var classList = this.elem.classList,
+            classes = this.classes;
+
+            if(classList.contains(classes.unpinned)) {
+                classList.remove(classes.unpinned);
+                classList.add(classes.pinned);
+            }
+
+            if(this.getScrollY() > this.offset && !classList.contains(classes.notTop)) {
+                classList.add(classes.notTop);
+                classList.remove(classes.top);
+            }
+        }
+        headroom.shouldUnpin = function (currentScrollY, toleranceExceeded) {
+            var scrollingDown = currentScrollY > this.lastKnownScrollY,
+                pastOffset = currentScrollY >= this.offset,
+                beforeNextOffset = currentScrollY <= this.nextOffset;
+
+            return (scrollingDown && pastOffset && toleranceExceeded) ||
+                   (!scrollingDown && beforeNextOffset);
+        }
+        headroom.init();
+    </script>
+
+	</body>
+</html>

@@ -1,0 +1,82 @@
+.header-text {
+	font-family: 'Oxygen', sans-serif;
+	font-weight: 100;
+}
+
+.header-text .name {
+	font-size: 1.9em;
+}
+
+.header-text .links {
+	font-size: 1.6em;
+	color: #505050;
+}
+
+.content a:link, .content a:visited {
+	color: #000;
+	text-decoration: underline;
+	transition: color 0.3s;
+}
+
+.content a:hover {
+	color: #888;
+}
+
+.header-text .links a:link, .header-text .links a:visited, footer .links a:link, footer .links a:visited {
+	color: #949494;
+	text-decoration: none;
+	transition: color 0.3s;
+}
+
+.header-icons a:link, .header-icons a:visited {
+	color: #666666;
+	text-decoration: none;
+	transition: color 0.3s;
+}
+
+.header-text .links a:hover, .header-icons a:hover, footer .links a:hover {
+	color: #333333;
+}
+
+.content {
+	font-family: 'Oxygen', sans-serif;
+	font-weight: 100;
+}
+
+pre {
+	background-color: #eee;
+}
+
+code {
+	background-color: #eee;
+	font-family: 'Droid Sans Mono', monospace;
+	font-size: 0.8em;
+}
+
+code {
+	line-height: 1.7em;
+}
+
+.post h1 {
+	font-size: 1.7em;
+}
+
+.post h2 {
+	font-size: 1.5em;
+}
+
+.post h3 {
+	font-size: 1.3em;
+}
+
+.post h4 {
+	font-size: 1.1em;
+}
+
+footer .footer-content {
+	border-top: 1px #9C9C9C dotted;
+}
+
+blockquote {
+	border-left: 2px solid #000;
+}

@@ -1,0 +1,47 @@
+---
+layout: default
+title: Adam Dej
+---
+
+<div id="post-list">
+  <h2>Latest posts</h2>
+  <ul class="posts">
+    {% for post in site.posts limit 5 %}
+      <li><span><tt>{{ post.date | date_to_string }}</tt></span> &raquo; <a href="{{ site.url }}{{ post.url }}"><b>{{ post.title }}</b></a>
+
+        <div class="post_details">{{ post.excerpt }}</div>
+        <div style="text-align: left; margin-left: 30px; font-size: 90%; display: inline;">
+            <b>Categories: </b> {% for category in post.categories %} {{ category }} {% unless forloop.last %},{% endunless %} {% endfor %}
+        </div>
+        <div style="float: right; display: inline; font-size: 90%;">
+            <a href="{{ site.url }}{{ post.url }}">Read more &raquo;</a>
+        </div>
+
+      </li>
+    {% endfor %}
+
+    {% if site.posts.size == 0 %}
+    This blog is empty :(.
+    {% endif %}
+  </ul>
+
+  {% unless site.posts.size == 0 %}
+  <a href="{{ site.url }}/all_posts.html" style="font-size: 150%; padding-bottom: 40px;">All posts &raquo;</a><br />
+  {% endunless %}
+
+  {% unless site.posts.size == 0 %}
+    <h2>Categories</h2>
+    <div class="categories">
+    {% for category in site.categories %}
+        <h3> {{ category[0] }} </h3>
+
+        <ul class="cat_posts">
+            {% for post in category[1] %}
+                <li><span><tt>{{ post.date | date_to_string }}</tt></span> &raquo; <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+    </div>
+  {% endunless %}
+
+</div>
