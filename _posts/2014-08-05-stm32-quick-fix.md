@@ -3,7 +3,11 @@ layout: post
 title: Quick fix for st-util unable to flash Discovery board
 ---
 
-I was developing an application which required SIM communication. Not being carful enough, I hot-plugged the sim, which caused a brief short-circuit on STM32F0 Discovery board, and st-util was no longer able to connect to it. Here is how I "fixed" it.
+I was developing an application which required SIM communication. Not being carful enough, I setted up PA14 as output and set it high, and st-util was no longer able to connect to it. Here is how I "fixed" it.
+
+**EDIT:**
+
+First time I thought that the problem was caused by a brief short-circuit caused by hot-plugging the SIM. This was not the cause. After some research, I found out that I was setting PA14 as output and high, and SWDIO is connected to this pin. This is why there were those problems, and why "Connect under reset" worked, and why the problem went away after erasing the flash.
 
 The symptoms were: If I tried to connect normaly using st-util (https://github.com/texane/stlink), the connection LED on the STM32 board would turn yellow and I would get this output:
 
@@ -45,6 +49,9 @@ The solution was to use ST LINK utility running under Windows. I set up virtual 
 
 After that, I just erased the device (Ctrl+E) and after that, I was able to use st-util again
 
+**EDIT:**
+This was the old solution. In the meantime I came up with another. All you need to do is to press the reset button before the flash operation, and release it just in the right moment, that way you can program the flash from st-util
+
 ~~~
 2014-08-05T08:49:47 INFO src/stlink-common.c: Loading device parameters....
 2014-08-05T08:49:47 INFO src/stlink-common.c: Device connected is: F0 device, id 0x20006440
@@ -54,6 +61,6 @@ Target voltage is 2918 mV.
 Listening at *:4242...
 ~~~
 
-Thinking back about this, this problem seems trivial, however, installing Windows to save a Discovery board was an act of desperation. If you have similar simptoms, this may save you some time looking a solution.
+Thinking back about this, this problem seems trivial, however, installing Windows to save a Discovery board was an act of desperation. If you have similar symptoms, this may save you some time looking a solution.
 
-Apparently this was a hardware problem which had a software workaround. This workaround was implemented in ST's ST LINK but not in Texane's st-util, therefore it would make a nice pull request one day.
+It would make a nice pull request implementing "Connect under reset" functionality to Texane's stlink.
