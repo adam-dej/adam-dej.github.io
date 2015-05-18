@@ -85,8 +85,8 @@ To chroot to our new installation we must first populate /dev, /sys and /proc di
 ~~~
 (android) # mount -o bind /dev/ arch/dev/
 (android) # mount -t devpts devpts arch/dev/pts
-(android) # mount -t proc proc /proc
-(android) # mount -t sysfs sysfs /sys
+(android) # mount -t proc proc arch/proc
+(android) # mount -t sysfs sysfs arch/sys
 (android) # chroot arch /bin/su -
 ~~~
 
