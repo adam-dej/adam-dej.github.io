@@ -12,19 +12,19 @@ doing, only in **how**, read only `Installing the system` section.
 
 For a year I've been using rPI as my home server. It has performed adequately,
 but for various reasons I've decided to do a HW upgrade and to choose a little
-bit different approach for the setup.
+bit different approach for setup.
 
 Price, power consumption, size and noise were (and still are) the key factors
 that need to be considered when choosing a new hardware.
 
-My choise was the
+My choise was
 [A20-OLinuXIno-LIME2](https://www.olimex.com/Products/OLinuXino/A20/A20-OLinuXIno-LIME2/open-source-hardware)
-. It is very cheap, has a dual-core 1GHz armv7 CPU, 1GB RAM and onboard SATA.
+. It is very cheap, has dual-core 1GHz armv7 CPU, 1GB RAM and onboard SATA.
 As a neat bonus, it is completely open hardware platform. Onboard SATA was the
 key feature that convinced me to use this board. On my previous rPI setup root
-has also been on the external HDD, connected using SATA <-> USB converter. But
-because the rPI has ethernet connected to the same USB hub as the HDD was there
-performance was not very good.
+has also been on the external HDD, connected using SATA <-> USB converter. This
+was a huge bottlenect, since Ethernet on rPI is also connected to the same USB
+hub.
 
 The previous server setup was a single Arch system on which all my services were
 running. This was OK for most of them, but Gitlab... that thing broke **every**
@@ -32,17 +32,17 @@ time there was a Ruby update. With no spare time on my hands I've simply stopped
 updating the server.
 
 This time I'm going to address this issue. The base system will be still Arch
-linux. But it will only be a minimal, bare system, host to several
+Linux. But it will only be a minimal, bare system, host to several
 [LXC containers](https://wiki.archlinux.org/index.php/Linux_Containers). In
 those containerized isolated environments services themselves will run. This
 approach remedies the problem with problematic software dependent on a
-particular version of many things. And when btrfs is chosen as a root, the root
-of each Container can be a btrfs subvolume. This has some neat implications:
+particular version of many things. And if I were to use btrfs, root of each
+Container can be a btrfs subvolume. This has some neat implications:
 Container cloning with Copy-On-Write support, snapshotting before messing with
 the container (so that changes can be reverted rapidly if something goes
 wrong)...
 
-This is the reason I'm installing Arch linux with btrfs root on external HDD.
+This is the reason I'm installing Arch Linux with btrfs root on external HDD.
 This post covers the installation of base system.
 
 Arch installation
@@ -51,9 +51,9 @@ Arch installation
 Choosing the right approach
 ---------------------------
 
-There are several options how to achieve this. Arch on OLinuXIno uses the u-boot
-bootloader. It can load kernel image from serveral filesystems, but btrfs is not
-one of them. That automatically means a separate boot partition will be
+There are several possible ways to achieve this. Arch on OLinuXIno uses the
+u-boot bootloader. It can load kernel image from serveral filesystems, but btrfs
+is not one of them. That automatically means a separate boot partition will be
 required.
 
 How about root? Arch Linux ARM is installed from prepared .tar.gz file
@@ -61,7 +61,7 @@ containing the whole root filesystem. But, attempting to extract it to the
 btrfs partition causes errors like
 
 ~~~
-./usr/blah/foobar bsdtar: Failed to set file flags
+./usr/foo/bar bsdtar: Failed to set file flags
 ~~~
 
 OK, so extract it to an ext4 partition and then convert it to the btrfs file
@@ -69,11 +69,12 @@ system? That would work, but [btrfs wiki](https://btrfs.wiki.kernel.org/index.ph
 warns about this: **Warning: As of 4.0 kernels this feature is not much used or
 well tested anymore, and there have been some reports that the conversion
 doesn't work reliably. Feel free to try it out, but make sure you have backups**
-Uh, that's not something I would rely on when it comes to a root of a server.
+. Uh, that's not something I would rely on when it comes to a root of a server.
 
-Option I've chosen is to install Arch Linux ARM from scratch, in the same way
-Arch Linux is installed on desktops. That means we will prepare an installation
-medium on a SD card, boot it and install arch to HDD from it.
+I've chosen  to install Arch Linux ARM from scratch, in the same way Arch Linux
+is installed on desktops. That means we will prepare an installation medium on a
+SD card, boot it and install arch to HDD from it, therefore avoid all those
+problems.
 
 Installing the system
 ---------------------
@@ -81,23 +82,24 @@ Installing the system
 This process is heavily based upon these instructions, combined and changed
 where necessary:
 
-http://archlinuxarm.org/platforms/armv7/allwinner/a20-olinuxino-lime2  
-https://wiki.archlinux.org/index.php/Installation_guide
+[http://archlinuxarm.org/platforms/armv7/allwinner/a20-olinuxino-lime2](http://archlinuxarm.org/platforms/armv7/allwinner/a20-olinuxino-lime2)  
+[https://wiki.archlinux.org/index.php/Installation_guide](https://wiki.archlinux.org/index.php/Installation_guide)
 
 ### Preparing the installation medium
 
-Zero out beginning of the SD card:
+Zero out the beginning of the SD card:
 
 ~~~
 # dd if=/dev/zero of=/dev/sdX bs=1M count=8
 ~~~
 
-Now we will partition this card in an interesting way. I suppose you know how to
+Now we will partition the card in an interesting way. I suppose you know how to
 use `fdisk`, if not, read the manual and some tutorials. We will create two
-partitions, one for the whole installation system, and one for the new /boot
+partitions, one for the whole installation system, and one for the new `/boot`
 partition. Start `fdisk` and create primary partition number 1 **starting on
 sector 104448**. Accept the default end. Now create primary partition number 2
-starting on sector 2048 and ending on 104447. This will create a 50M partition.
+starting on sector 2048 and with end on 104447. This will create a 50M
+partition.
 
 Why have we done this? U-boot looks at the **first** partition and looks for the
 (among other things) `/boot/zImage`. For now, we want our installation partition
@@ -115,26 +117,26 @@ Device         Boot  Start      End  Sectors  Size Id Type
 Format and mount the installation partition:
 
 ~~~
-mkfs.ext4 /dev/sdX1
-mount /dev/sdX1 /mnt/tmp
+# mkfs.ext4 /dev/sdX1
+# mount /dev/sdX1 /mnt/tmp
 ~~~
 
 Download and extract Arch Linux ARM image to the installation partition:
 
 ~~~
-wget http://archlinuxarm.org/os/ArchLinuxARM-armv7-latest.tar.gz
-bsdtar -xpf ArchLinuxARM-armv7-latest.tar.gz -C /mnt/tmp
-sync
+# wget http://archlinuxarm.org/os/ArchLinuxARM-armv7-latest.tar.gz
+# bsdtar -xpf ArchLinuxARM-armv7-latest.tar.gz -C /mnt/tmp
+# sync
 ~~~
 
 Download and install bootloader to the card:
 
 ~~~
-wget http://archlinuxarm.org/os/sunxi/boot/a20-olinuxino-lime2/u-boot-sunxi-with-spl.bin
-dd if=u-boot-sunxi-with-spl.bin of=/dev/sdX bs=1024 seek=8
-wget http://archlinuxarm.org/os/sunxi/boot/a20-olinuxino-lime2/boot.scr -O /mnt/tmp/boot/boot.scr
-umount /mnt/tmp
-sync
+# wget http://archlinuxarm.org/os/sunxi/boot/a20-olinuxino-lime2/u-boot-sunxi-with-spl.bin
+# dd if=u-boot-sunxi-with-spl.bin of=/dev/sdX bs=1024 seek=8
+# wget http://archlinuxarm.org/os/sunxi/boot/a20-olinuxino-lime2/boot.scr -O /mnt/tmp/boot/boot.scr
+# umount /mnt/tmp
+# sync
 ~~~
 
 Now insert the card to your OLinuXIno (with connected HDD you will install Arch
@@ -180,17 +182,17 @@ Install base system packages:
 # pacstrap /mnt base btrfs-progs
 ~~~
 
-Note: The above command won't install the kernel itself (and I was wondering why
-won't it boot...). We will install it later.
+Note: The above command won't install kernel itself (and I was wondering why
+it would't boot...). We will install it later.
 
-Now for the basic configuration. Create fstab:
+Now for the basic configuration. Create `fstab`:
 
 ~~~
 # genfstab -p /mnt >> /mnt/etc/fstab
 ~~~
 
-Now, our /boot partition is `mmcblk0p2`. We will change it later to `mmcblk0p1`,
-so let's tell `fstab` that. Change this line:
+Now, our `/boot` partition is `mmcblk0p2`. We will change it later to
+`mmcblk0p1`, so let's tell `fstab` that. Change line containing `mmcblk0p2` to:
 
 ~~~
 /dev/mmcblk0p1          /boot       ext2        rw,relatime 0 2
@@ -329,7 +331,7 @@ Get out of the chroot now (`Ctrl + D`) and unmount the new system
 # umount -R /mnt
 ~~~
 
-Last thing there is to do is to swap those two partition on the SD card. Use
+Last thing there is to do is to swap those two partitions on the SD card. Use
 `fdisk`, print existing partitions, note where they start and end, then erase
 them. Create new two partitions, but the first will start and end where the
 second did before.
@@ -369,10 +371,15 @@ A message appeared:
 [  408.655073] systemd-journald[128]: Creating journal file /var/log/journal/bd00c0bbc8e94c7197c9d945a65fe627/user-1000.journal on a btrfs file system, and copy-on-write is enabled. This is likely to slow down journal access substantially, please consider turning off the copy-on-write file attribute on the journal directory, using chattr +C.
 ~~~
 
-Do what it says:
+So let's disable CoW for for `/var/log/journal` and all existing files (this
+must be done from other system, files mustn't be used during this process):
 
 ~~~
-# chattr +C /var/log/journal/
+# mv /var/log/journal /var/log/journal_old
+# mkdir /var/log/journal
+# chattr +C /var/log/journal
+# cp -a /var/log/journal_old/* /var/log/journal
+# rm -rf /var/log/journal_old
 ~~~
 
 Optionally: create yourself a user, upload your public key and disable `ssh` password and
