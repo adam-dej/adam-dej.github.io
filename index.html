@@ -6,7 +6,7 @@ title: Adam Dej
 <div id="post-list">
   <h2>Latest posts</h2>
   <ul class="posts">
-    {% for post in site.posts limit 5 %}
+    {% for post in site.posts limit:4 %}
       <li><span><tt>{{ post.date | date_to_string }}</tt></span> &raquo; <a href="{{ site.url }}{{ post.url }}"><b>{{ post.title }}</b></a>
 
         <div class="post_details">{{ post.excerpt }}</div>
