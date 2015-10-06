@@ -104,3 +104,11 @@ blockquote {
 	color: #676767;
 	margin-top: 5px;
 }
+
+.disclaimer {
+	color: #676767;
+}
+
+.small-disclaimer {
+	font-size: 10px;
+}
