@@ -9,7 +9,17 @@ title: All posts
   <br />
 
   {% for post in site.categories.talk-description %}
-    TODO
+  <div class="project-item bordered">
+    <h3>{{ post.title }}</h3>
+    <div class="project-item-body bordered">
+    {% if post.link %}
+    <a href="{{ post.link }}" class="project-link">
+        <i class="fa fa-file-powerpoint-o"></i> {{ post.link }}
+    </a>
+    {% endif %}
+    {{ post.excerpt }}
+    </div>
+  </div>
   {% else %}
     No content yet :(.
   {% endfor %}
