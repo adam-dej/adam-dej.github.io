@@ -82,7 +82,7 @@ Installing the system
 This process is heavily based upon these instructions, combined and changed
 where necessary:
 
-[http://archlinuxarm.org/platforms/armv7/allwinner/a20-olinuxino-lime2](http://archlinuxarm.org/platforms/armv7/allwinner/a20-olinuxino-lime2)  
+[http://archlinuxarm.org/platforms/armv7/allwinner/a20-olinuxino-lime2](http://archlinuxarm.org/platforms/armv7/allwinner/a20-olinuxino-lime2)
 [https://wiki.archlinux.org/index.php/Installation_guide](https://wiki.archlinux.org/index.php/Installation_guide)
 
 ### Preparing the installation medium
@@ -257,7 +257,7 @@ and followed
 wiki page, all this is explained there.
 
 ~~~
-# systemctl enable systemd-networkd 
+# systemctl enable systemd-networkd
 # systemctl enable systemd-resolved
 # rm /etc/resolv.conf
 # ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf

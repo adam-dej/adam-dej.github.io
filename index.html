@@ -32,7 +32,8 @@ title: Adam Dej
 <div id="post-list">
   <h2>Latest posts</h2>
   <ul class="posts">
-    {% for post in site.posts limit:4 %}
+    {% for post in site.posts %}
+      {% unless count >= 5 or post.categories contains 'project-description' or post.categories contains 'talk-description' or post.categories contains 'app-description' %}
       <li><span><tt>{{ post.date | date_to_string }}</tt></span> &raquo; <a href="{{ site.url }}{{ post.url }}"><b>{{ post.title }}</b></a>
 
         <div class="post_details">{{ post.excerpt }}</div>
@@ -44,6 +45,8 @@ title: Adam Dej
         </div>
 
       </li>
+      {% capture throwaway %}{% increment count %}{% endcapture %}
+      {% endunless %}
     {% endfor %}
 
     {% if site.posts.size == 0 %}
@@ -59,6 +62,7 @@ title: Adam Dej
     <h2>Categories</h2>
     <div class="categories">
     {% for category in site.categories %}
+      {% unless category[0] == 'project-description' or category[0] == 'talk-description' or category[0] == 'app-description' %}
         <h3> {{ category[0] }} </h3>
 
         <ul class="cat_posts">
@@ -66,6 +70,7 @@ title: Adam Dej
                 <li><span><tt>{{ post.date | date_to_string }}</tt></span> &raquo; <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></li>
             {% endfor %}
         </ul>
+      {% endunless %}
     {% endfor %}
     </div>
   {% endunless %}
