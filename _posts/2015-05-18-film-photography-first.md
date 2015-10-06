@@ -15,7 +15,6 @@ Czechoslovakia. The camera is fully mechanical, equipped with Mirar II 80/3.5
 and Prontor-SVS (B, 1-1/300s) shutter. It uses 120 roll film.
 
 ![Flexaret III](/graphics/first_film_photography/flexaret-iii.jpg)
-
 I wondered whether the camera still works, and was given two films, Fomapan 100
 and Fomapan 200. After destroying the Fomapan 100 film by rewinding it too much
 ( :( ) I've sucessfully loaded Fomapan 200, and with tutoring of a friend took
@@ -57,7 +56,7 @@ just a log of what I've done):
   * Start the countdown and pour in the developer
   * Agitate (turn upside down at moderate speeds) the developing tank
     * Continuously for the first 30 seconds
-    * For 10 seconds at the beginning of every minute
+    * oFr 10 seconds at the beginning of every minute
   * Immediately after the timer finishes, pour out the developer and pour in
     the stop bath quickly
     * I've used water as a stop bath

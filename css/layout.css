@@ -361,3 +361,17 @@ ul.posts li {
 	margin-bottom: 5px;
 	margin-top: 20px;
 }
+
+.project-item-body {
+    margin-left: 10px;
+}
+
+.project-item.bordered {
+    border-bottom: 1px solid #D4D4D4;
+}
+
+.project-link {
+    margin-left: 13px;
+    text-decoration: none;
+    display: block;
+}
