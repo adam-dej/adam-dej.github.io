@@ -9,7 +9,22 @@ title: All posts
   <br />
 
   {% for post in site.categories.project-description %}
-    TODO
+  <div class="project-item bordered">
+    <h3>{{ post.title }}</h3>
+    <div class="project-item-body bordered">
+    {% if post.documentation %}
+    <a href="{{ post.documentation }}" class="project-link">
+        <i class="fa fa-cog"></i> {{ post.documentation }}
+    </a>
+    {% endif %}
+    {% if post.repository %}
+    <a href="{{ post.repository }}" class="project-link">
+        <i class="fa fa-code"></i> {{ post.repository }}
+    </a>
+    {% endif %}
+    {{ post.excerpt }}
+    </div>
+  </div>
   {% else %}
     No content yet :(.
   {% endfor %}
