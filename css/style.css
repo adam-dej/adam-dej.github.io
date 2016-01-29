@@ -81,6 +81,16 @@ blockquote {
 	border-left: 2px solid #000;
 }
 
+table {
+	margin: 15px;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+
+td, th {
+	padding: 5px 10px 5px 10px;
+}
+
 .top-links {
 	text-align: center;
 }

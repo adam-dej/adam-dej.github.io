@@ -16,6 +16,8 @@ Projekt Deadlock (premenovaný z projektu Gate) je systém na ovládanie dverí 
 
 ### Reader
 
+![Reader](/projects/rp/reader.jpg)
+
 Reader je čítačka ISIC kariet ktorú vidí užívateľ. Jej úlohou je prečítať údaje z ISIC-u a oznámiť takú udalosť Controlleru. Reader je tiež zodpovedný za poskytovanie vizuálneho a audio užívateľského rozhrania.
 
 ### Controller
@@ -25,10 +27,12 @@ Controller je zariadenie ktoré rozhoduje o otvorení jedných dverí na základ
 ## Schémy, zdrojové kódy a dokumentácia
 
   - Hardware Testing Library
-    - [Zdrojový kód](/projects/hw-testing.zip)
-    - Dokumentácia
+    - [Zdrojový kód](/projects/rp/hw-testing.zip)
+    - [Dokumentácia (EN)](/projects/rp/hw-testing-doc.html)
   - Reader revision A
-    - Dokumentácia
-    - [Schémy a layout PCB](/projects/reader-hw.zip)
-    - [PDF verzia schém a PCB](/projects/reader-hw.pdf)
-    - Software
+    - [Dokumentácia (EN)](/projects/rp/reader-doc.html)
+      - [Dokumentácia k revízií A dosky (EN)](/projects/rp/reader-hw-revA-doc.html)
+    - [Schémy a layout PCB](/projects/rp/reader-hw.zip)
+    - [PDF verzia schém a PCB](/projects/rp/reader-hw.pdf)
+    - [Software (template)](/projects/rp/reader-sw.zip)
+  - [Controller ↔ Reader Protocol (EN)](/projects/rp/reader-controller-protocol.html)
