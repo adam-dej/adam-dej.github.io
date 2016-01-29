@@ -26,6 +26,9 @@ Controller je zariadenie ktoré rozhoduje o otvorení jedných dverí na základ
 
   - Hardware Testing Library
     - [Zdrojový kód](/projects/hw-testing.zip)
+    - Dokumentácia
   - Reader revision A
+    - Dokumentácia
     - [Schémy a layout PCB](/projects/reader-hw.zip)
     - [PDF verzia schém a PCB](/projects/reader-hw.pdf)
+    - Software
