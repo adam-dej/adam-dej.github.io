@@ -20,9 +20,7 @@ Projekt Deadlock (premenovaný z projektu Gate) je systém na ovládanie dverí 
 
 Reader je čítačka ISIC kariet ktorú vidí užívateľ. Jej úlohou je prečítať údaje z ISIC-u a oznámiť takú udalosť Controlleru. Reader je tiež zodpovedný za poskytovanie vizuálneho a audio užívateľského rozhrania.
 
-### Controller
-
-Controller je zariadenie ktoré rozhoduje o otvorení jedných dverí na základe informácií z (maximálne dvoch) pripojených Readerov. Ovláda zámok a monitoruje stav otvorenia dverí. Komunikuje so Servrom, z ktorého dostáva momentálnu databázu kariet a zasiela mu logy z rôznych udalostí. Komunikácia je cez jednoduchý UDP protokol. Napájanie je riešené cez Power-over-ethernet z dôvodu minimalizácie náročnosti inštalácie. Konfigurácia a pamäť je riešená Micro-SD kartou. To tiež znamená, že ak dôjde k poruche na Controlleri stačí zobrať záložný kus, vymeniť kartu a dvere fungujú rovnako ako predtým s nulovou námahou.
+Pre skompilovanie firmware-u pre Reader je potrebné stiahnuť vhodnú verziu ChibiOS a umiestniť ju na miesto na ktoré ukazuje `Makefile`.
 
 ## Schémy, zdrojové kódy a dokumentácia
 
@@ -34,5 +32,5 @@ Controller je zariadenie ktoré rozhoduje o otvorení jedných dverí na základ
       - [Dokumentácia k revízií A dosky (EN)](/projects/rp/reader-hw-revA-doc.html)
     - [Schémy a layout PCB](/projects/rp/reader-hw.zip)
     - [PDF verzia schém a PCB](/projects/rp/reader-hw.pdf)
-    - [Software (template)](/projects/rp/reader-sw.zip)
+    - [Firmware](/projects/rp/reader-fw.tar.gz)
   - [Controller ↔ Reader Protocol (EN)](/projects/rp/reader-controller-protocol.html)
